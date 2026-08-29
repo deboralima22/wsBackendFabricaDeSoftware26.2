@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Consultar CEP</title>
+</head>
+<body>
+    <h1>Consultar Endereço por CEP</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="cep" placeholder="Ex: 01310100" maxlength="9" required>
+        <button type="submit">Buscar</button>
+    </form>
+
+    {% if erro %}
+        <p style="color: red;">{{ erro }}</p>
+    {% endif %}
+
+    {% if resultado %}
+        <table border="1" cellpadding="8">
+            <tr><th>Logradouro</th><td>{{ resultado.logradouro }}</td></tr>
+            <tr><th>Bairro</th><td>{{ resultado.bairro }}</td></tr>
+            <tr><th>Cidade</th><td>{{ resultado.localidade }}</td></tr>
+            <tr><th>Estado</th><td>{{ resultado.uf }}</td></tr>
+            <tr><th>CEP</th><td>{{ resultado.cep }}</td></tr>
+        </table>
+    {% endif %}
+
+    <br>
+    <a href="{% url 'lista_produtos' %}">Voltar</a>
+</body>
+</html>
